@@ -5,51 +5,99 @@ import CampsiteInfo from "./CampsiteInfoComponent";
 import Contact from "./ContactComponent";
 import Constants from "expo-constants";
 import Directory from "./DirectoryComponent";
-import { View, Platform } from "react-native";
+import { View, Platform, StyleSheet } from "react-native";
 import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator } from "react-navigation-drawer";
 import { createAppContainer } from "react-navigation";
+import { Icon } from 'react-native-elements';
 
 const HomeNavigator = createStackNavigator(
-    {
-      Home: { screen: Home },
-    },
-    {
-      defaultNavigationOptions: {
-        headerStyle: {
-          backgroundColor: "#5637DD",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          color: "#fff",
-        },
+  {
+    Home: { screen: Home }
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: '#5637DD'
       },
-    }
-  );
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        color: '#fff'
+      },
+      headerLeft: <Icon
+        name='home'
+        type='font-awesome'
+        iconStyle={styles.stackIcon}
+        onPress={() => navigation.toggleDrawer()}
+      />
+    })
+  }
+);
 
 
 const AboutNavigator = createStackNavigator(
   {
-    About: { screen: About },
+    About: { screen: About }
   },
   {
-    defaultNavigationOptions: {
+    defaultNavigationOptions: ({ navigation }) => ({
       headerStyle: {
-        backgroundColor: "#5637DD",
+        backgroundColor: '#5637DD'
       },
-      headerTintColor: "#fff",
+      headerTintColor: '#fff',
       headerTitleStyle: {
-        color: "#fff",
+        color: '#fff'
       },
-    },
+      headerLeft: <Icon
+        name='info-circle'
+        type='font-awesome'
+        iconStyle={styles.stackIcon}
+        onPress={() => navigation.toggleDrawer()}
+      />
+    })
   }
 );
 
 const ContactNavigator = createStackNavigator(
   {
-    Contact: { screen: Contact },
+    Contact: { screen: Contact }
   },
   {
+    defaultNavigationOptions: ({ navigation }) => ({
+      headerStyle: {
+        backgroundColor: '#5637DD'
+      },
+      headerTintColor: '#fff',
+      headerTitleStyle: {
+        color: '#fff'
+      },
+      headerLeft: <Icon
+        name='address-card'
+        type='font-awesome'
+        iconStyle={styles.stackIcon}
+        onPress={() => navigation.toggleDrawer()}
+      />
+    })
+  }
+);
+
+const DirectoryNavigator = createStackNavigator(
+  {
+    Directory: {
+      screen: Directory,
+      navigationOptions: ({ navigation }) => ({
+        headerLeft: <Icon
+          name='list'
+          type='font-awesome'
+          iconStyle={styles.stackIcon}
+          onPress={() => navigation.toggleDrawer()}
+        />
+      })
+    },
+    CampsiteInfo: { screen: CampsiteInfo },
+  },
+  {
+    initialRouteName: "Directory",
     defaultNavigationOptions: {
       headerStyle: {
         backgroundColor: "#5637DD",
@@ -61,25 +109,6 @@ const ContactNavigator = createStackNavigator(
     },
   }
 );
-
-const DirectoryNavigator = createStackNavigator(
-    {
-      Directory: { screen: Directory },
-      CampsiteInfo: { screen: CampsiteInfo },
-    },
-    {
-      initialRouteName: "Directory",
-      defaultNavigationOptions: {
-        headerStyle: {
-          backgroundColor: "#5637DD",
-        },
-        headerTintColor: "#fff",
-        headerTitleStyle: {
-          color: "#fff",
-        },
-      },
-    }
-  );
 
 const MainNavigator = createDrawerNavigator(
   {
@@ -109,5 +138,13 @@ class Main extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  stackIcon: {
+    marginLeft: 10,
+    color: '#fff',
+    fontSize: 24
+  }
+});
 
 export default Main;
